@@ -11,9 +11,9 @@ Function    : The author is too lazy to write nothing
 """
 from util.base import color_term
 # from util.base import StreamToLogger
-from util.base import execute_cmd
+# from util.base import execute_cmd
 import os
-import re
+# import re
 import time
 import sys
 import argparse
@@ -67,22 +67,26 @@ if __name__ == '__main__':
     try:
         parser = argparse.ArgumentParser(
             prog="Standard".format(__VERSION__),
-            formatter_class=argparse.RawTextHelpFormatter,
-            description="This is a RNAseq_pipeline "
+            description="This is a RNAseq_pipeline."
             )
+        # formatter_class=argparse.RawTextHelpFormatter,
         # https://docs.python.org/3/library/argparse.html
         # https://docs.python.org/2/howto/argparse.html
-        parser.add_argument('-i', '--inputdir',
-                            type=str,
-                            help="Input dir for fastq file. To identify the input file, the suffix must is '.R1.fastq.gz' \
-                            and '.R1.fastq.gz' or '.R1.fastq' and '.R1.fastq', and you should make sure you have read and \
-                            write access to these files")
+        # https://codeday.me/bug/20171209/105070.html
+        group = parser.add_mutually_exclusive_group()
+        group.add_argument(
+            '-i',
+            '--inputdir',
+            type=str,
+            help="Input dir for fastq file. To identify the input file, the suffix must is .R1.fastq.gz and .R1.fastq.gz or .R1.fastq and .R1.fastq, and you should make sure you have read and write access to these files",
+            metavar='')
         # 指定参数的形式，一般写两个，一个短参数，一个长参数
-        parser.add_argument('-o',
-                            '--outputdir',
-                            type=str,
-                            help="Specify output directory")
-
+        group.add_argument(
+            '-o',
+            '--outputdir',
+            type=str,
+            help="Specify output directory",
+            metavar='')
         args = parser.parse_args()
         input_dir = os.path.abspath(args.inputdir)
         output_dir = os.path.abspath(args.outputdir)
