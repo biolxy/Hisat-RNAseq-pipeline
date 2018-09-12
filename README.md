@@ -4,11 +4,13 @@
 >  2018年9月12日，hyp在学习全基因组RNAseq流程，我便整理此流程希望能有帮助
 
 ### 我的预期
+适用范围：
+该pipeline目前只适用Pair end双端测序数据
 
 只需要配置相关软件：
 
 - 此pipeline需要用到的软件
-  - IlluQC_PRLL
+  - fastp
   - hisat
 
 指定输入数据文件夹和输出数据文件夹：
