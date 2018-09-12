@@ -66,16 +66,14 @@ def execute_cmd(cmd):
     该函数调用 color_term 函数
     """
     # print("Command will be execute in a subshell:\n\t{}".format(cmd))
-    try:
-        p = subprocess.Popen(
-            shlex.split(cmd),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
-            )
-        for line in iter(p.stdout.readline, b''):
-            print(line.rstrip().decode())
-        error = p.stderr.read().decode()
-        print error
-    except Exception as e:
-        print("\n{}\n".format(cmd))
-        raise e
+    print(color_term("{}".format(cmd), 'green'))
+    p = subprocess.Popen(
+        shlex.split(cmd),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+        )
+    for line in iter(p.stdout.readline, b''):
+        print(line.rstrip().decode())
+    error = p.stderr.read().decode()
+    if error:
+        raise Exception(error)
